@@ -1,2 +1,3 @@
-# backend-with-go
-Trying to learn backend development with go
+# EventHub
+
+> Empower Your Moments, Create Your Events - Welcome to EventHub, Where Every Occasion Finds its Stage!
