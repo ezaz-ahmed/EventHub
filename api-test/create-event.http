@@ -3,7 +3,7 @@ POST http://localhost:8080/events
 Content-Type: application/json
 
 {
-  "name": "Test Event",
+  "name": "Test Event 3",
   "description": "A test event",
   "location": "A test location",
   "dateTime": "{{$datetime iso8601}}"
