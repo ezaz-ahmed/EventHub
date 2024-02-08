@@ -101,6 +101,17 @@ func (e Event) Update() error {
 	return err
 }
 
-// func DeleteEventById(id int64) (*Event, error) {
-// 	query := `DELETE * FROM events WHERE id = ?`
-// }
+func (e Event) Delete() error {
+	query := `DELETE FROM events WHERE id = ?`
+
+	stmt, err := db.DB.Prepare(query)
+
+	if err != nil {
+		return err
+	}
+
+	defer stmt.Close()
+
+	_, err = stmt.Exec(e.ID)
+	return err
+}
