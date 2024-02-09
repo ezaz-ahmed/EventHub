@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/ezaz-ahmed/EventHub/db"
-	"github.com/ezaz-ahmed/EventHub/utils"
 )
 
 type User struct {
@@ -27,13 +26,7 @@ func (user User) Save() error {
 
 	defer stmt.Close()
 
-	hashedPassword, err := utils.HashPassword(user.Password)
-
-	if err != nil {
-		return err
-	}
-
-	result, err := stmt.Exec(user.Email, hashedPassword)
+	result, err := stmt.Exec(user.Email, user.Password)
 
 	if err != nil {
 		return err
