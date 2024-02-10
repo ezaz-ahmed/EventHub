@@ -1,6 +1,7 @@
 package models
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/ezaz-ahmed/EventHub/db"
@@ -44,4 +45,25 @@ func (user User) Save() error {
 	user.ID = id
 
 	return err
+}
+
+func (user User) ValidateCredentials() error {
+	query := "SELECT id, password FROM users WHERE email = ?"
+	row := db.DB.QueryRow(query, user.Email)
+
+	var retrievePassword string
+
+	err := row.Scan(&user.ID, &retrievePassword)
+
+	if err != nil {
+		return errors.New("invalid credentials")
+	}
+
+	passwordIsValid := utils.CheckPasswordHash(user.Password, retrievePassword)
+
+	if !passwordIsValid {
+		return errors.New("invalid credentials")
+	}
+
+	return nil
 }
