@@ -1,7 +1,6 @@
 package routes
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/ezaz-ahmed/EventHub/models"
@@ -16,7 +15,6 @@ func signup(context *gin.Context) {
 	err := context.ShouldBindJSON(&user)
 
 	if err != nil {
-		fmt.Println(err)
 		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse request data."})
 		return
 	}
@@ -37,7 +35,6 @@ func login(context *gin.Context) {
 	err := context.ShouldBindJSON(&user)
 
 	if err != nil {
-		fmt.Println(err)
 		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse request data."})
 		return
 	}

@@ -2,7 +2,6 @@ package models
 
 import (
 	"errors"
-	"fmt"
 
 	"github.com/ezaz-ahmed/EventHub/db"
 	"github.com/ezaz-ahmed/EventHub/utils"
@@ -15,9 +14,6 @@ type User struct {
 }
 
 func (user User) Save() error {
-
-	fmt.Println(user.Email, user.Password)
-
 	query := "INSERT INTO users(email, password) VALUES (?, ?)"
 
 	stmt, err := db.DB.Prepare(query)
