@@ -1,7 +1,6 @@
 package routes
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/ezaz-ahmed/EventHub/models"
@@ -10,7 +9,6 @@ import (
 )
 
 func signup(context *gin.Context) {
-
 	var user models.User
 
 	err := context.ShouldBindJSON(&user)
@@ -39,11 +37,7 @@ func login(context *gin.Context) {
 		return
 	}
 
-	fmt.Println("before validate credential id", user.ID)
-
 	err = user.ValidateCredentials()
-
-	fmt.Println("after validate credential id", user.ID)
 
 	if err != nil {
 		context.JSON(http.StatusUnauthorized, gin.H{"message": err.Error()})

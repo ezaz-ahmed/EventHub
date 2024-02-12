@@ -2,7 +2,6 @@ package utils
 
 import (
 	"errors"
-	"fmt"
 	"log"
 	"os"
 	"time"
@@ -49,28 +48,20 @@ func VerifyToken(tokenString string) (int64, error) {
 	})
 
 	if err != nil {
-		fmt.Println(err)
 		return 0, err
 	}
 
 	if !token.Valid {
-		fmt.Println("!token.valid")
 		return 0, errors.New("invalid token")
 	}
 
 	claims, ok := token.Claims.(*Claims)
 
 	if !ok {
-		fmt.Println("!ok")
 		return 0, errors.New("invalid token claims")
 	}
 
-	fmt.Printf("user id %v", claims.UserID)
-	fmt.Printf("user email %v", claims.Email)
-
 	userId := claims.UserID
-
-	fmt.Println(userId)
 
 	return userId, nil
 }
