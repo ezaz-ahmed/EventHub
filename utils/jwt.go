@@ -43,19 +43,34 @@ func GenerateToken(email string, userId int64) (string, error) {
 	return token.SignedString(secretKey)
 }
 
-func VerifyToken(tokenString string) error {
+func VerifyToken(tokenString string) (int64, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &Claims{}, func(token *jwt.Token) (interface{}, error) {
 		return secretKey, nil
 	})
 
 	if err != nil {
 		fmt.Println(err)
-		return err
+		return 0, err
 	}
 
 	if !token.Valid {
-		return errors.New("invalid token")
+		fmt.Println("!token.valid")
+		return 0, errors.New("invalid token")
 	}
 
-	return nil
+	claims, ok := token.Claims.(*Claims)
+
+	if !ok {
+		fmt.Println("!ok")
+		return 0, errors.New("invalid token claims")
+	}
+
+	fmt.Printf("user id %v", claims.UserID)
+	fmt.Printf("user email %v", claims.Email)
+
+	userId := claims.UserID
+
+	fmt.Println(userId)
+
+	return userId, nil
 }
